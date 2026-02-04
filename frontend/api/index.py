@@ -4,14 +4,18 @@ from fastapi.middleware.cors import CORSMiddleware
 import sys
 import os
 
-# Add backend directory to path so we can import engine/scraper
-# In Vercel, the root is usually where package.json is, or accessible via ".."
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../backend'))
+# Add local backend_core directory to path
+sys.path.append(os.path.join(os.path.dirname(__file__), '../backend_core'))
 
 try:
     from main import app as backend_app
-except ImportError:
-    # Fallback/Mock for build time if paths are messed up
+except ImportError as e:
+    # Print error to Vercel logs
+    print(f"Error importing backend: {e}")
     backend_app = FastAPI()
+    
+    @backend_app.get("/api/{path:path}")
+    def fallback(path: str):
+        return {"error": f"Backend load failed: {str(e)}", "path": path}
 
 app = backend_app

@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+xgboost
+scipy
+beautifulsoup4
+requests
+playwright
+lxml
+python-multipart
+# Additional for specific algorithms (not always essential but good for advanced stats)
+statsmodels
+joblib
