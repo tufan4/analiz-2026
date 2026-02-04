@@ -17,11 +17,11 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/dashboard');
+        const res = await fetch('/api/dashboard');
         const data = await res.json();
         setDashboardData(data);
 
-        const matchesRes = await fetch('http://localhost:8000/api/matches');
+        const matchesRes = await fetch('/api/matches');
         const matchesData = await matchesRes.json();
         setMatches(matchesData);
 
@@ -39,7 +39,7 @@ export default function Home() {
   const analyzeMatch = async (matchId: string) => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8000/api/analyze/${matchId}`);
+      const res = await fetch(`/api/analyze/${matchId}`);
       const data = await res.json();
       setPredictions((prev: any) => ({ ...prev, [matchId]: data }));
     } catch (e) {
